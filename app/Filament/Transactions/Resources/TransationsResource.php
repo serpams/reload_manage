@@ -68,8 +68,6 @@ class TransationsResource extends Resource
                                             ->maxLength(255),
                                     ])
                                     ->required()->live(),
-                                Forms\Components\TextInput::make('observacao')->required()->label('Observação'),
-
 
                             ])
                             ->columns(2),
@@ -87,9 +85,6 @@ class TransationsResource extends Resource
                                     ->numeric()
                                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                                     ->required(),
-
-                                Forms\Components\TextInput::make('valor_convertido')
-                                    ->disabled()
                             ])
                             ->columns(2),
 
@@ -100,6 +95,8 @@ class TransationsResource extends Resource
                                     ->default(0),
                                 Forms\Components\Checkbox::make('caixa_inicial')
                                     ->default(0),
+                                Forms\Components\TextInput::make('observacao')->label('Observação'),
+
                             ])
                             ->columns(2),
                     ])
@@ -109,7 +106,9 @@ class TransationsResource extends Resource
                     ->schema([
                         Forms\Components\Section::make('Status')
                             ->schema([
-                                Forms\Components\DatePicker::make('data')
+                                Forms\Components\DateTimePicker::make('data')
+                                    ->default(now())
+                                    ->readOnly(true)
                                     ->required(),
                             ]),
 
@@ -145,9 +144,7 @@ class TransationsResource extends Resource
 
                                 Forms\Components\Hidden::make('users_id')
                                     ->required()
-                                    ->default(auth()->user()->id),
-                                Forms\Components\Checkbox::make('repasse')
-                                    ->default(0)
+                                    ->default(auth()->user()->id)
 
                             ]),
                     ])
@@ -165,7 +162,7 @@ class TransationsResource extends Resource
                 Tables\Columns\TextColumn::make('users.name')->label('Cadastrado por:'),
                 Tables\Columns\TextColumn::make('sites.name')->label('Site|Conta'),
                 Tables\Columns\TextColumn::make('repasse'),
-                Tables\Columns\TextColumn::make('data')->dateTime('d/m/y'),
+                Tables\Columns\TextColumn::make('data')->dateTime('d/m/y H:i'),
                 Tables\Columns\TextColumn::make('valor')->label('Fichas $')->money('USD')->summarize(
                     [
                         Sum::make()->query(fn (Build $query) => $query->where('type', 'compra'))->label('Total Compra $')->money('USD'),
@@ -191,7 +188,7 @@ class TransationsResource extends Resource
                         ]
                     )->money('BRL'),
                 Tables\Columns\TextColumn::make('valor_convertido_considerado')
-                    ->summarize(Sum::make()->label('Lucro entre ( Compra - venda )'))->label('Operacao')->money('BRL'),
+                    ->summarize(Sum::make()->label('Lucro entre ( Compra - venda )')->money('BRL'))->label('Operacao')->money('BRL'),
             ])
             ->filters([
                 Filter::make('e_repasse')
