@@ -53,12 +53,14 @@ class TransationsResource extends Resource
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\Select::make('type')
+                                ->label('Tipo')
                                     ->options([
-                                        'compra' => 'compra',
-                                        'venda' => 'venda',
+                                        'compra' => 'Compra',
+                                        'venda' => 'Venda',
                                     ])
                                     ->required(),
                                 Forms\Components\Select::make('sites_id')
+                                    ->label('Conta ficha')
                                     ->relationship('sites', 'name')
                                     ->searchable()
                                     ->preload()
@@ -105,6 +107,7 @@ class TransationsResource extends Resource
                 Forms\Components\Group::make()
                     ->schema([
                         Forms\Components\Section::make('Status')
+                            ->label('Data Criação')
                             ->schema([
                                 Forms\Components\DateTimePicker::make('data')
                                     ->default(now())
@@ -112,9 +115,10 @@ class TransationsResource extends Resource
                                     ->required(),
                             ]),
 
-                        Forms\Components\Section::make('Vinculado')
+                        Forms\Components\Section::make('Vincular')
                             ->schema([
                                 Forms\Components\Select::make('clients_id')
+                                    ->label('Cliente')
                                     ->relationship('clients', 'name')
                                     ->searchable()
                                     ->preload()
@@ -133,6 +137,7 @@ class TransationsResource extends Resource
                                     ->required(),
 
                                 Forms\Components\Select::make('sellers_id')
+                                    ->label('Vendedor')
                                     ->relationship('sellers', 'name')
                                     ->searchable()
                                     ->preload()
@@ -159,10 +164,10 @@ class TransationsResource extends Resource
             ->recordTitleAttribute('type')
             ->columns([
                 Tables\Columns\TextColumn::make('type')->label('Tipo'),
+                Tables\Columns\TextColumn::make('repasse')->label('RP'),
                 Tables\Columns\TextColumn::make('users.name')->label('Usuário'),
                 Tables\Columns\TextColumn::make('sites.name')->label('Conta ficha'),
-                Tables\Columns\TextColumn::make('repasse'),
-                Tables\Columns\TextColumn::make('data')->dateTime('d/m/y H:i'),
+                Tables\Columns\TextColumn::make('data')->dateTime('d/m/y H:i')->label('Data Criação'),
                 Tables\Columns\TextColumn::make('valor')->label('Fichas ($)')->money('USD')->summarize(
                     [
                         Sum::make()->query(fn (Build $query) => $query->where('type', 'compra'))->label('Total Compra $')->money('USD'),
