@@ -18,8 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
+//Route::get('/', function () {
+//    return redirect('/transactions');
+//});
+
 Route::get('/', function () {
-    return redirect('/transactions');
+    return view('Painel');
 });
 
 
