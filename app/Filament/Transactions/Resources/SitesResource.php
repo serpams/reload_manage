@@ -37,7 +37,7 @@ class SitesResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required()->label('Site|Conta'),
+                Forms\Components\TextInput::make('name')->required()->label('Conta ficha'),
 
             ]);
     }
@@ -46,7 +46,7 @@ class SitesResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label('Site|Conta'),
+                Tables\Columns\TextColumn::make('name')->label('Conta ficha'),
                 Tables\Columns\TextColumn::make('compras')
                 ->state(function (Model $record) {
                     $valor = Transactions::where('sites_id',$record->id)->where('type','compra')->where('repasse', 0)->sum('valor') ;
