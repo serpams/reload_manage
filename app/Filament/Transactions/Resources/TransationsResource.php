@@ -54,10 +54,13 @@ class TransationsResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('type')
                                 ->label('Tipo')
+                                ->searchable()
+                                    ->preload()
                                     ->options([
                                         'compra' => 'Compra',
                                         'venda' => 'Venda',
                                     ])
+                                    ->extraAttributes(['style' => 'color: #333;'])
                                     ->required(),
                                 Forms\Components\Select::make('sites_id')
                                     ->label('Conta ficha')
