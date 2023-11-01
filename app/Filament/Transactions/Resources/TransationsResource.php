@@ -110,6 +110,7 @@ class TransationsResource extends Resource
                         Forms\Components\Section::make('Status')
                             ->schema([
                                 Forms\Components\DatePicker::make('data')
+                                    ->default(now())
                                     ->required(),
                             ]),
 
@@ -229,7 +230,7 @@ class TransationsResource extends Resource
                     ->relationship('clients', 'name')
                     ->searchable()
                     ->preload()
-            ])
+            ])->filtersFormColumns(3)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
