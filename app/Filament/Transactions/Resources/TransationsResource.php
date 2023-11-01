@@ -158,12 +158,12 @@ class TransationsResource extends Resource
         return $table
             ->recordTitleAttribute('type')
             ->columns([
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('users.name')->label('Cadastrado por:'),
-                Tables\Columns\TextColumn::make('sites.name')->label('Site|Conta'),
+                Tables\Columns\TextColumn::make('type')->label('Tipo'),
+                Tables\Columns\TextColumn::make('users.name')->label('Usuário'),
+                Tables\Columns\TextColumn::make('sites.name')->label('Conta ficha'),
                 Tables\Columns\TextColumn::make('repasse'),
                 Tables\Columns\TextColumn::make('data')->dateTime('d/m/y H:i'),
-                Tables\Columns\TextColumn::make('valor')->label('Fichas $')->money('USD')->summarize(
+                Tables\Columns\TextColumn::make('valor')->label('Fichas ($)')->money('USD')->summarize(
                     [
                         Sum::make()->query(fn (Build $query) => $query->where('type', 'compra'))->label('Total Compra $')->money('USD'),
                         Sum::make()->query(fn (Build $query) => $query->where('type', 'venda'))->label('Total Venda $')->money('USD'),
@@ -178,7 +178,7 @@ class TransationsResource extends Resource
                 //     return $valor;
                 // }),
                 Tables\Columns\TextColumn::make('cotacao')->money('BRL')
-                    ->summarize([Average::make()->label('cotacao Media'), Range::make()->label('Minimo e Maximo')]),
+                    ->summarize([Average::make()->label('Cotacao Media'), Range::make()->label('Minimo e Maximo')]),
 
                 TextColumn::make('valor_convertido')
                     ->summarize(
