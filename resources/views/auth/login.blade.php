@@ -1,15 +1,7 @@
-<x-filament-panels::page.simple>
-<!-- Session Status -->
+<x-guest-layout>
+    <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-	
-	<x-filament-panels::form wire:submit="login">
-        {{ $this->form }}
-		
-		<x-filament-panels::form.actions
-            :actions="$this->getCachedFormActions()"
-            :full-width="$this->hasFullWidthFormActions()"
-        />
-		
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -52,5 +44,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-filament-panels::form>
-</x-filament-panels::page.simple>
+</x-guest-layout>
