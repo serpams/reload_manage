@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SitesResource extends Resource
 {
     protected static ?string $model = Sites::class;
-    protected static ?string $navigationLabel = 'Sites';
+    protected static ?string $navigationLabel = 'Conta ficha';
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     public static function getNavigationBadge(): ?string
