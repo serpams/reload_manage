@@ -53,12 +53,14 @@ class TransationsResource extends Resource
                         Forms\Components\Section::make()
                             ->schema([
                                 Forms\Components\Select::make('type')
+                                ->label('Tipo')
                                     ->options([
-                                        'compra' => 'compra',
-                                        'venda' => 'venda',
+                                        'compra' => 'Compra',
+                                        'venda' => 'Venda',
                                     ])
                                     ->required(),
                                 Forms\Components\Select::make('sites_id')
+                                    ->label('Conta ficha')
                                     ->relationship('sites', 'name')
                                     ->searchable()
                                     ->preload()
@@ -68,8 +70,6 @@ class TransationsResource extends Resource
                                             ->maxLength(255),
                                     ])
                                     ->required()->live(),
-                                Forms\Components\TextInput::make('observacao')->required()->label('Observação'),
-
 
                             ])
                             ->columns(2),
@@ -87,9 +87,6 @@ class TransationsResource extends Resource
                                     ->numeric()
                                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                                     ->required(),
-
-                                Forms\Components\TextInput::make('valor_convertido')
-                                    ->disabled()
                             ])
                             ->columns(2),
 
@@ -100,6 +97,8 @@ class TransationsResource extends Resource
                                     ->default(0),
                                 Forms\Components\Checkbox::make('caixa_inicial')
                                     ->default(0),
+                                Forms\Components\TextInput::make('observacao')->label('Observação'),
+
                             ])
                             ->columns(2),
                     ])
@@ -108,15 +107,18 @@ class TransationsResource extends Resource
                 Forms\Components\Group::make()
                     ->schema([
                         Forms\Components\Section::make('Status')
+                            ->label('Data Criação')
                             ->schema([
-                                Forms\Components\DatePicker::make('data')
+                                Forms\Components\DateTimePicker::make('data')
                                     ->default(now())
+                                    ->readOnly(true)
                                     ->required(),
                             ]),
 
-                        Forms\Components\Section::make('Vinculado')
+                        Forms\Components\Section::make('Vincular')
                             ->schema([
                                 Forms\Components\Select::make('clients_id')
+                                    ->label('Cliente')
                                     ->relationship('clients', 'name')
                                     ->searchable()
                                     ->preload()
@@ -135,6 +137,7 @@ class TransationsResource extends Resource
                                     ->required(),
 
                                 Forms\Components\Select::make('sellers_id')
+                                    ->label('Vendedor')
                                     ->relationship('sellers', 'name')
                                     ->searchable()
                                     ->preload()
@@ -146,9 +149,7 @@ class TransationsResource extends Resource
 
                                 Forms\Components\Hidden::make('users_id')
                                     ->required()
-                                    ->default(auth()->user()->id),
-                                Forms\Components\Checkbox::make('repasse')
-                                    ->default(0)
+                                    ->default(auth()->user()->id)
 
                             ]),
                     ])
@@ -162,12 +163,12 @@ class TransationsResource extends Resource
         return $table
             ->recordTitleAttribute('type')
             ->columns([
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('users.name')->label('Cadastrado por:'),
-                Tables\Columns\TextColumn::make('sites.name')->label('Site|Conta'),
-                Tables\Columns\TextColumn::make('repasse'),
-                Tables\Columns\TextColumn::make('data')->dateTime('d/m/y'),
-                Tables\Columns\TextColumn::make('valor')->label('Fichas $')->money('USD')->summarize(
+                Tables\Columns\TextColumn::make('type')->label('Tipo'),
+                Tables\Columns\TextColumn::make('repasse')->label('RP'),
+                Tables\Columns\TextColumn::make('users.name')->label('Usuário'),
+                Tables\Columns\TextColumn::make('sites.name')->label('Conta ficha'),
+                Tables\Columns\TextColumn::make('data')->dateTime('d/m/y H:i')->label('Data Criação'),
+                Tables\Columns\TextColumn::make('valor')->label('Fichas ($)')->money('USD')->summarize(
                     [
                         Sum::make()->query(fn (Build $query) => $query->where('type', 'compra'))->label('Total Compra $')->money('USD'),
                         Sum::make()->query(fn (Build $query) => $query->where('type', 'venda'))->label('Total Venda $')->money('USD'),
@@ -182,7 +183,7 @@ class TransationsResource extends Resource
                 //     return $valor;
                 // }),
                 Tables\Columns\TextColumn::make('cotacao')->money('BRL')
-                    ->summarize([Average::make()->label('cotacao Media'), Range::make()->label('Minimo e Maximo')]),
+                    ->summarize([Average::make()->label('Cotacao Media'), Range::make()->label('Minimo e Maximo')]),
 
                 TextColumn::make('valor_convertido')
                     ->summarize(
@@ -192,7 +193,7 @@ class TransationsResource extends Resource
                         ]
                     )->money('BRL'),
                 Tables\Columns\TextColumn::make('valor_convertido_considerado')
-                    ->summarize(Sum::make()->label('Lucro entre ( Compra - venda )'))->label('Operacao')->money('BRL'),
+                    ->summarize(Sum::make()->label('Lucro entre ( Compra - venda )')->money('BRL'))->label('Operacao')->money('BRL'),
             ])
             ->filters([
                 Filter::make('e_repasse')

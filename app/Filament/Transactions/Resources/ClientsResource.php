@@ -30,7 +30,7 @@ class ClientsResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->label('Nome'),
                 Forms\Components\TextInput::make('email'),
-                Forms\Components\TextInput::make('phone')->label('telefone'),
+                Forms\Components\TextInput::make('phone')->label('Telefone'),
             ]);
     }
 
@@ -40,7 +40,7 @@ class ClientsResource extends Resource
             ->columns([
                 Tables\Columns\TextInputColumn::make('name')->label('Nome'),
                 Tables\Columns\TextInputColumn::make('email'),
-                Tables\Columns\TextInputColumn::make('phone')->label('telefone'),
+                Tables\Columns\TextInputColumn::make('phone')->label('Telefone'),
             ])
             ->filters([
             ])

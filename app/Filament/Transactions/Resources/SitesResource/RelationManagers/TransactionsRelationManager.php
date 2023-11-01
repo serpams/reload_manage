@@ -37,7 +37,7 @@ class TransactionsRelationManager extends RelationManager
         $sites_id = fn (Get $get) => $get('sites_id');
         return $form
             ->schema([
-                Forms\Components\DatePicker::make('data')
+                Forms\Components\DateTimePicker::make('data')
                     ->required(),
                 Forms\Components\Select::make('type')
                     ->options([
@@ -91,7 +91,9 @@ class TransactionsRelationManager extends RelationManager
                 Forms\Components\Checkbox::make('repasse')
                     ->default(0),
                 Forms\Components\Checkbox::make('caixa_inicial')
-                    ->default(0) ,
+                    ->default(0),
+                Forms\Components\TextInput::make('observacao')->label('Observação'),
+
 
             ]);
     }

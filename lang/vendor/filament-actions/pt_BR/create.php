@@ -4,11 +4,11 @@ return [
 
     'single' => [
 
-        'label' => 'Novo :label',
+        'label' => 'Adicionar',
 
         'modal' => [
 
-            'heading' => 'Criar :label',
+            'heading' => 'Criar',
 
             'actions' => [
 
