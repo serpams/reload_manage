@@ -222,6 +222,7 @@ class TransationsResource extends Resource
                 SelectFilter::make('sites')
                     ->relationship('sites', 'name')
                     ->searchable()
+                    ->multiple(true)
                     ->preload(),
                 SelectFilter::make('sellers')->label('Vendedor')
                     ->relationship('sellers', 'name')
