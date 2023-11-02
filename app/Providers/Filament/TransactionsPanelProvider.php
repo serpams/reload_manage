@@ -25,7 +25,7 @@ class TransactionsPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->brandLogo(asset('images/logo.svg'));
+            ->brandLogo(asset('images/logo.svg'))
             ->id('transactions')
             ->path('transactions')
             ->login()
