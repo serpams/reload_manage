@@ -18,16 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-//Route::get('/', function () {
-//    return redirect('/transactions');
-//});
-
 Route::get('/', function () {
-    return view('welcome');
+   return redirect('/transactions');
 });
-
-Route::redirect('/transactions', '/painel');
-
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,4 +29,4 @@ Route::redirect('/transactions', '/painel');
 // });
 
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';

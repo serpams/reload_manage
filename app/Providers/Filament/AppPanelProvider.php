@@ -29,6 +29,7 @@ class AppPanelProvider extends PanelProvider
         return $panel
             ->id('gestao')
             ->path('gestao')
+            ->login()
             ->tenant(Obras::class)
             ->colors([
                 'primary' => Color::Amber,
