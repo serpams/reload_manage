@@ -17,12 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Route::get('/', function () {
-   return redirect('/transactions');
-});
-
-Route::get('/painel', function () {
    return redirect('/transactions');
 });
