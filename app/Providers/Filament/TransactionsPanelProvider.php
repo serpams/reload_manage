@@ -20,18 +20,12 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 use Filament\Panel;
  
-public function panel(Panel $panel): Panel
-{
-    return $panel
-        // ...
-        ->brandLogo(asset('images/logo.svg'));
-}
-
 class TransactionsPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandLogo(asset('images/logo.svg'));
             ->id('transactions')
             ->path('transactions')
             ->login()
