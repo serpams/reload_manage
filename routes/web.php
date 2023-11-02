@@ -26,6 +26,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::redirect('/transactions', '/painel');
+
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
