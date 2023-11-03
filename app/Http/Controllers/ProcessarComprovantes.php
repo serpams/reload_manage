@@ -121,6 +121,12 @@ class ProcessarComprovantes extends Controller
                 //  return $fileUrl;
                 self::processarDocumentos($fileUrl);
             }
+            if (isset($message['message']['document'])) {
+                $fileId = isset($message['message']['document']['file_id']) ? $message['message']['document']['file_id'] : $message['message']['document']['file_id'];
+                $fileUrl = self::getFileUrl($fileId);
+                //  return $fileUrl;
+                self::processarDocumentos($fileUrl);
+            }
         }
 
         return 'all_processed';
