@@ -25,7 +25,7 @@ class TransactionsPanelProvider extends PanelProvider
         return $panel
             ->id('transactions')
             ->path('transactions')
-            ->login()
+            // ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
