@@ -95,7 +95,7 @@ class ProcessarComprovantes extends Controller
         if (pathinfo($filePath, PATHINFO_EXTENSION) == '') {
             $pdf = new Pdf(public_path('storage') . '/' . $filename);
             $pdfimg = public_path('storage') . '/pdf_' . $filename;
-            $pdf->setOutputFormat('jpeg')->saveImage($pdfimg . '.jpeg');
+            $pdf->setOutputFormat('jpeg')->saveImage($$data['result']['file_id'] . '.jpeg');
             return 'pdf_' . $filename;
         }
 
