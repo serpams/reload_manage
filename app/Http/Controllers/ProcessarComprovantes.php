@@ -99,7 +99,7 @@ class ProcessarComprovantes extends Controller
         Storage::disk('public')->put($filename, $imageContents);
 
         if (pathinfo($filePath, PATHINFO_EXTENSION) == '') {
-            $pdf = new Pdf(public_path('storage') . '/' . $filename. '.pdf');
+            $pdf = new Pdf(public_path('storage') . '/' . $filename);
             $pdfimg = public_path('storage') . '/pdf_' . $filename. '.jpeg';
             $pdf->setOutputFormat('jpeg')->saveImage('pdf_' . $filename. '.jpeg');
             return 'pdf_' . $filename. '.jpeg';
