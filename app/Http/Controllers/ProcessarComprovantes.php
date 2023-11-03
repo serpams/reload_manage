@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use Intervention\Image\ImageManagerStatic;
-
+use Spatie\PdfToImage\Pdf;
 
 class ProcessarComprovantes extends Controller
 {
@@ -35,7 +35,7 @@ class ProcessarComprovantes extends Controller
         // get $data from form
         $data['text'] = $tesseract;
         $data['img_url'] = $file;
-        $data['valor'] =  isset($processado['valor_real'][0][0])? preg_replace('/\bR\$\s*/i', '', $processado['valor_real'][0][0]) : '';
+        $data['valor'] =  isset($processado['valor_real'][0][0]) ? preg_replace('/\bR\$\s*/i', '', $processado['valor_real'][0][0]) : '';
         $data['nome'] = isset($processado['nome'][0][0]) ? $processado['nome'][0][0] : '';
 
         try {
@@ -43,8 +43,6 @@ class ProcessarComprovantes extends Controller
             $date = str_replace('às', '', $date);
             $date = str_replace('-', '/', $date);
             $date = str_replace(' ', '', $date);
-
-
         } catch (\Throwable $th) {
             $date = null;
         }
@@ -88,9 +86,15 @@ class ProcessarComprovantes extends Controller
 
         // Obtendo o conteúdo da imagem da URL
         $imageContents = file_get_contents($filepath_url);
-
         // Salvando a imagem no disco local usando o Laravel Storage
         Storage::disk('public')->put($filename, $imageContents);
+        
+        if (pathinfo($filePath, PATHINFO_EXTENSION) == 'pdf') {
+            $pdf = new Pdf(public_path('storage') . '/' . $filename);
+            $pdfimg = public_path('storage') . '/pdf_' . $filename;
+            $pdf->setOutputFormat('jpeg')->saveImage($pdfimg . '.jpeg');
+            return 'pdf_' . $filename;
+        }
 
         return $filename;
     }
