@@ -78,6 +78,9 @@ class ProcessarComprovantes extends Controller
 
 
         $filename  = $data['result']['file_id'] . "." . pathinfo($filePath, PATHINFO_EXTENSION);
+
+        // check if $data['result']['file_path'] is extension is empty
+
         $filepath_url = "https://api.telegram.org/file/bot{$botToken}/{$filePath}";
         // $getfile =  Http::get($filepath_url);
 
@@ -88,8 +91,8 @@ class ProcessarComprovantes extends Controller
         $imageContents = file_get_contents($filepath_url);
         // Salvando a imagem no disco local usando o Laravel Storage
         Storage::disk('public')->put($filename, $imageContents);
-        
-        if (pathinfo($filePath, PATHINFO_EXTENSION) == 'pdf') {
+
+        if (pathinfo($filePath, PATHINFO_EXTENSION) == '') {
             $pdf = new Pdf(public_path('storage') . '/' . $filename);
             $pdfimg = public_path('storage') . '/pdf_' . $filename;
             $pdf->setOutputFormat('jpeg')->saveImage($pdfimg . '.jpeg');
