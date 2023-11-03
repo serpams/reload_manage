@@ -90,6 +90,11 @@ class ProcessarComprovantes extends Controller
         // Obtendo o conteúdo da imagem da URL
 
         $imageContents = file_get_contents($filepath_url);
+        if( pathinfo($filePath, PATHINFO_EXTENSION) == '' || pathinfo($filePath, PATHINFO_EXTENSION) == 'pdf' ){
+            $filename = $filename . '.pdf';
+        }else {
+            $filename = $filename ;
+        }
         // Salvando a imagem no disco local usando o Laravel Storage
         Storage::disk('public')->put($filename, $imageContents);
 
