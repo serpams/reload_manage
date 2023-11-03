@@ -91,7 +91,7 @@ class ProcessarComprovantes extends Controller
 
         $imageContents = file_get_contents($filepath_url);
         if( pathinfo($filePath, PATHINFO_EXTENSION) == '' || pathinfo($filePath, PATHINFO_EXTENSION) == 'pdf' ){
-            $filename = $filename . '.pdf';
+            $filename = $filename . 'pdf';
         }else {
             $filename = $filename ;
         }
@@ -100,9 +100,9 @@ class ProcessarComprovantes extends Controller
 
         if (pathinfo($filePath, PATHINFO_EXTENSION) == '') {
             $pdf = new Pdf(public_path('storage') . '/' . $filename);
-            $pdfimg = public_path('storage') . '/pdf_' . $filename. '.jpeg';
-            $pdf->setOutputFormat('jpeg')->saveImage('pdf_' . $filename. '.jpeg');
-            return 'pdf_' . $filename. '.jpeg';
+            $pdfimg = public_path('storage') . '/pdf_' . $filename. 'jpeg';
+            $pdf->setOutputFormat('jpeg')->saveImage('pdf_' . $filename. 'jpeg');
+            return 'pdf_' . $filename. 'jpeg';
         }
 
         return $filename;
