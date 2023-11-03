@@ -78,7 +78,7 @@ class ProcessarComprovantes extends Controller
 
 
         $filename  = $data['result']['file_id'] . "." . pathinfo($filePath, PATHINFO_EXTENSION);
-
+        $orignal = $filename;
         // check if $data['result']['file_path'] is extension is empty
 
         $filepath_url = "https://api.telegram.org/file/bot{$botToken}/{$filePath}";
@@ -100,9 +100,9 @@ class ProcessarComprovantes extends Controller
 
         if (pathinfo($filePath, PATHINFO_EXTENSION) == '') {
             $pdf = new Pdf(public_path('storage') . '/' . $filename);
-            $pdfimg = public_path('storage') . '/pdf_' . $filename. 'jpeg';
+            $pdfimg = public_path('storage') . '/pdf_' . $orignal. 'jpeg';
             $pdf->setOutputFormat('jpeg')->saveImage($pdfimg);
-            return 'pdf_' . $filename. 'jpeg';
+            return 'pdf_' . $orignal. 'jpeg';
         }
 
         return $filename;
