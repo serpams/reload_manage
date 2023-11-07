@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Analitics\Resources;
+namespace App\Filament\Manager\Resources;
 
-use App\Filament\Analitics\Resources\CuponsResource\Pages;
-use App\Filament\Analitics\Resources\CuponsResource\RelationManagers;
-use App\Models\Cupons;
+use App\Filament\Manager\Resources\ExtratosResource\Pages;
+use App\Filament\Manager\Resources\ExtratosResource\RelationManagers;
+use App\Models\Extratos;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CuponsResource extends Resource
+class ExtratosResource extends Resource
 {
-    protected static ?string $model = Cupons::class;
+    protected static ?string $model = Extratos::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -59,9 +59,9 @@ class CuponsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCupons::route('/'),
-            'create' => Pages\CreateCupons::route('/create'),
-            'edit' => Pages\EditCupons::route('/{record}/edit'),
+            'index' => Pages\ListExtratos::route('/'),
+            'create' => Pages\CreateExtratos::route('/create'),
+            'edit' => Pages\EditExtratos::route('/{record}/edit'),
         ];
     }    
 }

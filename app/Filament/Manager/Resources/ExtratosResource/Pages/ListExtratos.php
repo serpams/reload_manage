@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Analitics\Resources\ExtratoResource\Pages;
+namespace App\Filament\Manager\Resources\ExtratosResource\Pages;
 
-use App\Filament\Analitics\Resources\ExtratoResource;
+use App\Filament\Manager\Resources\ExtratosResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListExtratos extends ListRecords
 {
-    protected static string $resource = ExtratoResource::class;
+    protected static string $resource = ExtratosResource::class;
 
     protected function getHeaderActions(): array
     {
