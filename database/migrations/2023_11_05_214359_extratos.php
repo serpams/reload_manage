@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreign('extrato_id')->references('id')->on('extratos');
             $table->string('tipo')->nullable();
             $table->string('data')->nullable();
+            $table->string('agencia')->nullable();
             $table->string('descricao')->nullable();
             $table->string('valor')->nullable();
             $table->string('nome')->nullable();
