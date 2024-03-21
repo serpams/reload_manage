@@ -23,7 +23,13 @@ class ExtratosResource extends Resource
     {
         return $form
             ->schema([
-                //
+                // select\
+                Select::make('')
+                    ->options([
+1   ,
+2
+                    ]),
+
             ]);
     }
 
@@ -48,14 +54,14 @@ class ExtratosResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -63,5 +69,5 @@ class ExtratosResource extends Resource
             'create' => Pages\CreateExtratos::route('/create'),
             'edit' => Pages\EditExtratos::route('/{record}/edit'),
         ];
-    }    
+    }
 }
