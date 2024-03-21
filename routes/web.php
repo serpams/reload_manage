@@ -83,7 +83,7 @@ Route::get('/run', function () {
     //http://54.224.46.169/storage/_pdf_BQACAgEAAxkBAAMJZUVshROz7lvVobiNNo2Z78KN8S8AAt8CAAKQeChGkxj3c1n-aywzBA.jpeg
     $result = Gemini::geminiProVision()
         ->generateContent([
-            'Retorne pra mim em formato json : {  nome , valor , banco , chave  e data e hora }',
+            'Retorne pra mim em formato json : {  nome , valor , banco  , agencia ,conta ,instituicao , chave  e data e hora }',
             new Blob(
                 mimeType: MimeType::IMAGE_JPEG,
                 data: base64_encode(
