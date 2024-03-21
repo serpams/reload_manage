@@ -4,6 +4,9 @@ use App\Http\Controllers\ChirpController;
 use App\Http\Controllers\ProcessarComprovantes;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\Counter;
+use Gemini\Data\Blob;
+use Gemini\Enums\MimeType;
+use Gemini\Laravel\Facades\Gemini;
 use Illuminate\Support\Facades\Route;
 use thiagoalessio\TesseractOCR\TesseractOCR;
 use League\Csv\Writer;
@@ -74,4 +77,20 @@ Route::get('/execute', function () {
     $pdfimg = public_path('storage') . '/pdf_0c64ede6-3d0f-4f4e-b8c0-cb9e8fd547da.jpeg';
     $tesseract  = (new TesseractOCR($pdfimg))->lang('por')->run();
     return $tesseract;
+});
+
+Route::get('/run', function () {
+    //http://54.224.46.169/storage/_pdf_BQACAgEAAxkBAAMJZUVshROz7lvVobiNNo2Z78KN8S8AAt8CAAKQeChGkxj3c1n-aywzBA.jpeg
+    $result = Gemini::geminiProVision()
+        ->generateContent([
+            'Retorne pra mim em formato json : nome , valor , banco , chave  e data e hora',
+            new Blob(
+                mimeType: MimeType::IMAGE_JPEG,
+                data: base64_encode(
+                    file_get_contents('http://54.224.46.169/storage/_pdf_BQACAgEAAxkBAAMJZUVshROz7lvVobiNNo2Z78KN8S8AAt8CAAKQeChGkxj3c1n-aywzBA.jpeg')
+                )
+            )
+        ]);
+
+    $result->text();
 });
