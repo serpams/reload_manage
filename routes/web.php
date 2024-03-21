@@ -61,11 +61,17 @@ Route::get('/teste', function () {
 
 Route::get('/processar',  [ProcessarComprovantes::class, 'getReady']);
 
-Route::get('teste2', function () {
+Route::get('/teste2', function () {
 
 
     $pdf = new Pdf(public_path('comp/0c64ede6-3d0f-4f4e-b8c0-cb9e8fd547da.pdf'));
     $pdfimg = public_path('storage') . '/pdf_0c64ede6-3d0f-4f4e-b8c0-cb9e8fd547da.jpeg';
     $pdf->setOutputFormat('jpeg')->saveImage($pdfimg);
     // return 'pdf_' . $orignal . 'jpeg';
+});
+
+Route::get('/execute', function () {
+    $pdfimg = public_path('storage') . '/pdf_0c64ede6-3d0f-4f4e-b8c0-cb9e8fd547da.jpeg';
+    $tesseract  = (new TesseractOCR($pdfimg))->lang('por')->run();
+    return $tesseract;
 });
