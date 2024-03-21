@@ -92,7 +92,7 @@ Route::get('/run', function () {
             )
         ]);
 
-    $json = str_replace('json ', '', $result->text());
+    $json = str_replace('json', '', $result->text());
     $json = str_replace(
         '```',
         '',
