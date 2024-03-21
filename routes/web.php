@@ -99,11 +99,11 @@ Route::get('/run', function () {
         $json
     );
     $json = json_decode($json, true);
-    $json['valor'];
+    // $json['valor'];
     // $data = json_encode($json, JSON_PRETTY_PRINT);
     // o retorno e esse ```json { "nome": "Mateus de Almeida Serpa", "valor": "R$ 3.500,00", "instituicao": "Bradesco S/A", "chave": "NU PAGAMENTOS - IP", "data e hora": "02/11/2023 15:26:53", "origem": "Conta-corrente", "destino": "Bradesco Celular" } ```
     // transforme em um json valido
 
 
-    return  $json['valor'];
+    return $json;
 });
