@@ -92,8 +92,14 @@ Route::get('/run', function () {
             )
         ]);
 
-    $json = str_replace(array('```json ', ' ```'), '', $result->text());
+    $json = str_replace('```json ', '', $result->text());
+    $json = str_replace(
+        '```',
+        '',
+        $json
+    );
     $data = json_decode($json, true);
+    $data = json_encode($data, JSON_PRETTY_PRINT);
     // o retorno e esse ```json { "nome": "Mateus de Almeida Serpa", "valor": "R$ 3.500,00", "instituicao": "Bradesco S/A", "chave": "NU PAGAMENTOS - IP", "data e hora": "02/11/2023 15:26:53", "origem": "Conta-corrente", "destino": "Bradesco Celular" } ```
     // transforme em um json valido
 
