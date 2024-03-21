@@ -98,5 +98,5 @@ Route::get('/run', function () {
     // transforme em um json valido
 
 
-    return $json;
+    return $data;
 });
