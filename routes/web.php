@@ -92,5 +92,6 @@ Route::get('/run', function () {
             )
         ]);
 
-    $result->text();
+
+    return [data => $result->text()];
 });
